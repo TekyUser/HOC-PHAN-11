@@ -1,48 +1,55 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Login</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Log In To Your Account...</p>
+<!-- Header Section -->
+<header class="py-5" style="background: linear-gradient(to right, #6C5CE7, #00CEC9);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Login</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Log in to access your account</p>
+        </div>
+    </div>
+</header>
+
+<!-- Login Form Section -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">🔐 Welcome Back!</h2>
+
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-control-lg" name="username" placeholder="Enter Your Username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="password" class="form-control form-control-lg" name="password" placeholder="Enter Your Password" required>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">🚀 Login</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="{% url 'password_reset' %}" class="text-muted">Forgot Password?</a>
+                    </div>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="text-muted">Don't have an account?</p>
+                        <a href="{% url 'register' %}" class="btn btn-outline-success w-100">📝 Sign Up</a>
+                    </div>
                 </div>
             </div>
-        </header>
-
-        <div class="container">
-        	<div class="row">
-        		<center>
-        			<div class="col-8">
-
-        				<br/><br/>
-<form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    
-  <div class="mb-3">
-    
-    <input type="text" class="form-control" name="username" placeholder="Enter Your Username">
-    
-  </div>
-  <div class="mb-3">
-    
-    <input type="password" class="form-control" name="password" placeholder="Enter Your Password">
-  </div>
-  <br/><br/>
-  <button type="submit" class="btn btn-secondary">Login</button>
-</form>
-
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-        			</div>
-        		</center>
-        	</div>
         </div>
+    </div>
+</div>
 
 {% endblock %}

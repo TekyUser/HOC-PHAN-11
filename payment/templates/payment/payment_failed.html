@@ -1,1 +1,37 @@
-<h1>Payment Failed</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Failed Payment Header -->
+<header class="py-5" style="background: linear-gradient(to right, #FF3D71, #D32F2F);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">❌ Payment Failed</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Oops! Something went wrong.</p>
+        </div>
+    </div>
+</header>
+
+<!-- Payment Failure Section -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 text-center">
+            
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-danger fw-bold">⚠ Payment could not be processed.</h2>
+                    <p class="text-muted mt-3">Please check your payment details and try again.</p>
+                    <p class="text-muted">If the problem persists, feel free to <a href="{% url 'contact' %}" class="text-primary">contact support</a>.</p>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'billing_info' %}" class="btn btn-danger btn-lg">🔄 Retry Payment</a>
+                        <a href="{% url 'shop_home' %}" class="btn btn-outline-dark btn-lg ms-2">🏠 Back to Home</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

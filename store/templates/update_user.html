@@ -1,45 +1,52 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Update Profile</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Update User Profile...</p>
+<!-- Header Section -->
+<header class="py-5" style="background: linear-gradient(to right, #6C5CE7, #00CEC9);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Update Profile</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Keep your account details up to date</p>
+        </div>
+    </div>
+</header>
+
+<!-- Update Profile Section -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">📝 Edit Your Profile</h2>
+
+                    <form method="POST" action="{% url 'update_user' %}">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            {{ user_form.as_p }}
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg w-100">
+                                ✅ Update Profile
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="text-muted">Want to change your password?</p>
+                        <a href="{% url 'update_password' %}" class="btn btn-outline-warning w-100">
+                            🔒 Update Password
+                        </a>
+                    </div>
+
                 </div>
             </div>
-        </header>
-
-        <div class="container">
-        	<div class="row">
-        		
-        			<div class="col-md-6 offset-md-3">
-
-        				<br/><br/>
-<form method="POST" action="{% url 'update_user' %}">
-    {% csrf_token %}
-    
-    {{ user_form.as_p }}
-    <br/><br/>
-    <button type="submit" class="btn btn-secondary">
-      Update Profile
-    </button>
-</form>
-
-<br/><br/>
-<a href="{% url 'update_password' %}" class="btn btn-secondary">Update Password</a>
-
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-        			</div>
-        		
-        	</div>
         </div>
+    </div>
+</div>
 
 {% endblock %}

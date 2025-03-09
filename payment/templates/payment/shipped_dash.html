@@ -1,52 +1,67 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!-- Header-->
-        
+<!-- Header Section -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <div class="text-center">
+                <h3 class="mb-4 text-uppercase fw-bold"
+                    style="background: linear-gradient(to right, #6C5CE7, #00CEC9); 
+                           -webkit-background-clip: text; 
+                           color: transparent; 
+                           font-size: clamp(1.5rem, 5vw, 2.5rem);">
+                    Shipped Items
+                </h3>
+            </div>
 
-        <div class="container">
-        	<div class="row">
-        		<center>
-        			<div class="col-8">
-        				<br/><br/>
-<h3>Shipped Items</h3>
-<table class="table table-striped table-hover table-bordered">
-  <thead class="table-dark">
-    <tr>
-      <th scope="col">Order</th>
-      <th scope="col">Price</th>
-      <th scope="col">Customer Email</th>
-      <th scope="col">Date Shipped</th>
-      <th scope="col">Shipped</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in orders %}
-    <tr>
-      <td><a href="{% url 'orders' item.id %}">{{ item.id }}</a></td>
-      <td>${{ item.amount_paid }}</td>
-      <td>{{ item.email }}</td>
-      <td>{{ item.date_shipped }}</td>
-       <td>
-        <form method="POST">
-          {% csrf_token %}
-          <input type="hidden" name="shipping_status" value="false">
-          <input type="hidden" name="num" value={{item.id}}>
-          <button type="Submit" class="btn btn-danger btn-sm">Mark UnShipped</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  
-    
-  </tbody>
-</table>
+            <!-- Responsive Table -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle shadow-sm rounded">
+                    <thead class="table-dark text-center">
+                        <tr>
+                            <th scope="col">Order</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Customer Email</th>
+                            <th scope="col">Date Shipped</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in orders %}
+                        <tr class="text-center">
+                            <td>
+                                <a href="{% url 'orders' item.id %}" 
+                                   class="text-decoration-none fw-bold text-primary">
+                                    #{{ item.id }}
+                                </a>
+                            </td>
+                            <td class="fw-bold text-success">${{ item.amount_paid }}</td>
+                            <td class="text-truncate" style="max-width: 150px;">
+                                {{ item.email }}
+                            </td>
+                            <td>{{ item.date_shipped }}</td>
+                            <td>
+                                <form method="POST" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="shipping_status" value="false">
+                                    <input type="hidden" name="num" value="{{ item.id }}">
+                                    <button type="submit" 
+                                            class="btn btn-danger btn-sm px-3 py-2 shadow-sm w-100">
+                                        ❌ Mark Unshipped
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-
-<br/><br/>
-        			</div>
-        		</center>
-        	</div>
+            <!-- Extra Spacing -->
+            <div class="my-5"></div>
         </div>
+    </div>
+</div>
 
 {% endblock %}

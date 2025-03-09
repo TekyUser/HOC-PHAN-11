@@ -1,112 +1,109 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Search Products</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Find What You're Looking For...</p>
+<!-- Header Section -->
+<header class="py-5" style="background: linear-gradient(to right, #6C5CE7, #00CEC9);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">🔍 Search Products</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Find exactly what you're looking for</p>
+        </div>
+    </div>
+</header>
+
+<!-- Search Form -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold text-center mb-3">🔎 Search for a Product</h2>
+                    
+                    <form method="POST" action="{% url 'search' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-control-lg" placeholder="Enter product name..." name="searched" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                🔍 Search Products
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </header>
-
-        <div class="container">
-        	<div class="row">
-        		<center>
-        			<div class="col-10">
-        				<br/><br/>
-<div class="card">
-  <div class="card-header">
-    Search Products
-  </div>
-  <div class="card-body">
-    <form method="POST" action="{% url 'search' %}">
-        {% csrf_token %}
-        <div class="mb-3">
-  
-          <input type="text" class="form-control" placeholder="Search For Products" name="searched">
         </div>
-    <button type="submit" class="btn btn-secondary">
-        Search Products
-    </button>
-    </form>
-  </div>
-</div>
-<br/><br/>
-<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-{% if searched %}
-    {% for product in searched %}
-        {% if product.is_sale %}
-                    
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.name }}</h5>
-                                    <!-- Sale -->
-                <div class="d-flex justify-content-center small text-warning mb-2">
-                <div class="bi-star-fill"></div>
-                &nbsp;&nbsp;Sale!&nbsp;&nbsp;
-                <div class="bi-star-fill"></div>
-                </div>
-
-                                    <!-- Product price-->
-                                    <strike>
-                                    ${{ product.price }}
-                                    </strike>
-                                    &nbsp;
-                                    ${{ product.sale_price }}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    <div class="text-center">
-        <a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id  %}">View Product</a>
     </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    {% else %}
-                <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.name }}</h5>
-                                    <!-- Product price-->
-                                    ${{ product.price }}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
-                            </div>
-                        </div>
-                    </div>
-
-                        {% endif %}
-    {% endfor %}
-{% endif %}
 </div>
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        			</div>
-        		</center>
-        	</div>
-        </div>
+<!-- Search Results Section -->
+<div class="container py-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% if searched %}
+            {% for product in searched %}
+                <div class="col mb-5">
+                    <div class="card h-100 shadow-sm product-card">
+                        {% if product.is_sale %}
+                            <!-- Sale Badge -->
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">🔥 Sale</div>
+                        {% endif %}
+
+                        <!-- Product Image -->
+                        <img class="card-img-top product-image" src="{{ product.image.url }}" alt="{{ product.name }}">
+
+                        <!-- Product Details -->
+                        <div class="card-body p-4 text-center">
+                            <h5 class="fw-bolder">{{ product.name }}</h5>
+                            {% if product.is_sale %}
+                                <div class="text-warning mb-2">
+                                    <strike class="text-muted">${{ product.price }}</strike>
+                                    &nbsp;
+                                    <span class="fw-bold text-success">${{ product.sale_price }}</span>
+                                </div>
+                            {% else %}
+                                <h5 class="text-primary">${{ product.price }}</h5>
+                            {% endif %}
+                        </div>
+
+                        <!-- View Product Button -->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+                            <a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">
+                                🔍 View Product
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <h4 class="text-muted">😞 No products found. Try searching again.</h4>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    .product-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-image {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.05);
+    }
+</style>
 
 {% endblock %}

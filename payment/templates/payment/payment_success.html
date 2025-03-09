@@ -1,1 +1,37 @@
-<h1>Payment Success</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Success Header -->
+<header class="py-5" style="background: linear-gradient(to right, #00C851, #007E33);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">🎉 Payment Successful!</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Thank you for your purchase.</p>
+        </div>
+    </div>
+</header>
+
+<!-- Payment Confirmation Section -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 text-center">
+            
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-success fw-bold">✅ Your payment has been processed successfully!</h2>
+                    <p class="text-muted mt-3">An email confirmation has been sent to your inbox.</p>
+                    <p class="text-muted">If you have any questions, feel free to <a href="{% url 'contact' %}" class="text-primary">contact us</a>.</p>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'shop_home' %}" class="btn btn-primary btn-lg">🛍 Continue Shopping</a>
+                        <a href="{% url 'order_history' %}" class="btn btn-outline-success btn-lg ms-2">📜 View Order</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

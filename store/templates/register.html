@@ -1,43 +1,47 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Register</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Register for a User Account...</p>
+<!-- Header Section -->
+<header class="py-5" style="background: linear-gradient(to right, #6C5CE7, #00CEC9);">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Register</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Create your free account</p>
+        </div>
+    </div>
+</header>
+
+<!-- Registration Form Section -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">📝 Sign Up</h2>
+
+                    <form method="POST" action="{% url 'register' %}">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            {{ form.as_p }}
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                🚀 Register Now
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <p class="text-muted">Already have an account?</p>
+                        <a href="{% url 'login' %}" class="btn btn-outline-success w-100">🔑 Login Here</a>
+                    </div>
                 </div>
             </div>
-        </header>
-
-        <div class="container">
-        	<div class="row">
-        		
-        			<div class="col-md-6 offset-md-3">
-
-        				<br/><br/>
-<form method="POST" action="{% url 'register' %}">
-    {% csrf_token %}
-    
-    {{ form.as_p }}
-    <br/><br/>
-    <button type="submit" class="btn btn-secondary">
-      Register
-    </button>
-  
-</form>
-
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-        			</div>
-        		
-        	</div>
         </div>
+    </div>
+</div>
 
 {% endblock %}
